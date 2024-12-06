@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road To Berlin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <style>
+/* CSS esistente */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background-color: #1f1f1f;
+  color: #333;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-container {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.black-line {
+    width: 100vw;
+    height: 7vh;
+    background-color: rgb(31, 22, 24);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1vw;
+    z-index: 1000;
+}
+
+.logo {
+    height: 5vh;
+    margin-right: 2vh;
+}
+
+body.menu-open .logo { display: none; }
+
+#nav-container {
+    margin-left: auto;
+    position: relative;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  background: rgb(31, 22, 24);
+  border-radius: 0;
+  position: relative;
+  bottom: 0;
+}
+
+.footer .footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 3.5rem;
+  padding: 60px;
+}
+
+.footer-row .footer-col h4 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.footer-col .links {
+  margin-top: 20px;
+}
+
+.footer-col .links li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.footer-col .links li a {
+  text-decoration: none;
+  color: #bfbfbf;
+}
+
+.footer-col .links li a:hover {
+  color: #fff;
+}
+
+.footer-col p {
+  margin: 20px 0;
+  color: #bfbfbf;
+  max-width: 300px;
+}
+
+.footer-col form {
+  display: flex;
+  gap: 5px;
+}
+
+.footer-col input {
+  height: 40px;
+  border-radius: 6px;
+  background: none;
+  width: 100%;
+  outline: none;
+  border: 1px solid rgb(31, 22, 24); ;
+  caret-color: #fff;
+  color: #fff;
+  padding-left: 10px;
+}
+
+.footer-col input::placeholder {
+  color: #ccc;
+}
+
+ .footer-col form button {
+  background: #fff;
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.footer-col .icons i {
+  color: #afb6c7;
+}
+
+.footer-col form button:hover {
+  background: #cecccc;
+}
+
+.footer-col .icons {
+  display: flex;
+  margin-top: 30px;
+  gap: 30px;
+  cursor: pointer;
+}
+
+
+        .footer-col .icons i:hover  {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                position: relative;
+                bottom: 0;
+                left: 0;
+                transform: none;
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .footer .footer-row {
+                padding: 20px;
+                gap: 1rem;
+            }
+
+            .footer-col form {
+                display: block;
+            }
+
+            .footer-col form :where(input, button) {
+                width: 100%;
+            }
+
+            .footer-col form button {
+                margin: 10px 0 0 0;
+            }
+        }
+
+        /* Stile per l'area dei commenti */
+        .comment-section {
+            width: 60%;
+            margin: 20px auto;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Larghezza massima per renderla fissa */
+        }
+
+        .comment-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .comment-section textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .comment-section button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-section button:hover {
+            background-color: #555;
+        }
+
+        .comments-container {
+            margin-top: 20px;
+        }
+
+        .comment {
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            position: relative;
+        }
+
+        .comment .comment-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .comment button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment button:hover {
+            background-color: #ff1a1a;
+        }
+        textarea {
+            width: 100%;
+            height: 150px; /* Altezza fissa */
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none; /* Disabilita il ridimensionamento */
+            overflow: hidden; /* Nasconde la barra di scorrimento */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .comment-section {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .comments-container .comment {
+                font-size: 14px;
+            }
+
+            .comment-section textarea {
+                font-size: 14px;
+            }
+
+            .comment-section button {
+                font-size: 14px;
+            }
+
+            .comments-container .comment .comment-meta {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="black-line">
+        <a href="index.html" id="logo-link">
+            <img src="LOGO.png" alt="Logo" class="logo">
+        </a></div>
+
+    <img src="LOGO.png" alt="Descrizione dell'immagine">
+
+    <section class="comment-section">
+        <h2>Lascia un Commento</h2>
+        <textarea id="comment-input" placeholder="Scrivi il tuo commento qui..."></textarea>
+        <button onclick="addComment()">Invia Commento</button>
+        <div id="comments-container"></div>
+    </section>
+
+    <section class="footer">
+        <div class="footer-row">
+          <div class="footer-col">
+            <h4>Referenti Sito</h4>
+            <ul class="links">
+            <li><a href="mailto:valerio.esposito@itirighi.edu.it">Valerio Esposito</a></li>
+            <li><a href="mailto:alessandro.dellannunziata@itirighi.edu.it">Alessandro Dell'Annunziata</a></li>
+            <li><a href="mailto:federica.manzoni@itirighi.edu.it">Federica Manzoni</a></li>
+            <li><a href="mailto:rosario.muragas@itirighi.edu.it">Rosario Muragas</a></li>
+            <li><a href="mailto:luca.verazzo@itirighi.edu.it">Luca Verazzo</a></li>
+
+            </ul>
+          </div>
+  
+          <div class="footer-col">
+            <h4>Link Utili</h4>
+            <ul class="links">
+              <li><a href="https://www.itirighi.edu.it/">I.T.I Augusto Righi</a></li>
+              <li><a href="http://r-23.de/">Ristorante</a></li>
+              <li><a href="https://www.hotel-bb.com/de/hotel/berlin-tiergarten?utm_source=gmb              -gmb&utm_medium=referral&utm_content=berlin&utm_campaign=yext">Hotel</a></li>
+              <li><a href="https://www.viveberlintours.com/it/tour-guidati-berlino-italiano/?gad_source=1&gclid=Cj0KCQiAlsy5BhDeARIsABRc6Ztabl1Ji38IAbbP-ypdgaUn31IjKfTudx0QKgPvOL2keDqqFYVMJc0aAnMVEALw_wcB">Tour</a></li>
+              <li><a href="https://www.bvg.de/en/connections/network-maps-and-routes">Trasporti</a></li>
+            </ul>
+          </div>
+  
+          <div class="footer-col"></div>
+  
+          <div class="footer-col">
+            <h4>Chi Siamo</h4>
+            <p>
+              Siamo entusiasti di presentarvi il nostro sito web per il viaggio d'istruzione a Berlino! Grazie alla passione e all'energia creativa di tutta la classe, questo sito è diventato un vero capolavoro di collaborazione.
+            </p>
+            
+            <div class="icons">
+                <a href="https://www.twitch.tv/righiminutoperminuto"><i class="fa-brands fa-twitch"></i></a>
+                <a href="https://www.instagram.com/righireport/?igsh=MXE0YmlmMGw4bTV1Ng%3D%3D#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        // Simulazione di una variabile che contiene l'email dell'utente connesso
+        const userEmail = 'utente@example.com';
+    
+        function addComment() {
+            const commentText = document.getElementById('comment-input').value;
+            const commentTime = new Date().toLocaleString();
+    
+            if (userEmail && commentText) {
+                const commentsContainer = document.getElementById('comments-container');
+                
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+                
+                const commentMeta = document.createElement('div');
+                commentMeta.classList.add('comment-meta');
+                commentMeta.textContent = `${userEmail} - ${commentTime}`;
+                
+                const commentContent = document.createElement('div');
+                commentContent.textContent = commentText;
+    
+                // Mostra il pulsante "Elimina" solo per il creatore del commento
+                if (userEmail === 'utente@example.com') { // Controllo per l'email simulata
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Elimina';
+                    deleteButton.onclick = function() {
+                        commentsContainer.removeChild(commentElement);
+                        removeComment(userEmail, commentTime);
+                    };
+                    commentElement.appendChild(deleteButton);
+                }
+    
+                commentElement.appendChild(commentMeta);
+                commentElement.appendChild(commentContent);
+                commentsContainer.appendChild(commentElement);
+    
+                saveComment(userEmail, commentText, commentTime);
+    
+                document.getElementById('comment-input').value = '';
+            }
+        }
+    
+        function saveComment(email, text, time) {
+        let comments = localStorage.getItem('comments');
+        
+        if (comments) {
+            comments = JSON.parse(comments);
+        } else {
+            comments = [];
+        }
+
+        comments.push({ email, text, time });
+        localStorage.setItem('comments', JSON.stringify(comments));
+    }
+
+    function loadComments() {
+        let comments = localStorage.getItem('comments');
+        
+        if (comments) {
+            comments = JSON.parse(comments);
+            const commentsContainer = document.getElementById('comments-container');
+
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+
+                const commentMeta = document.createElement('div');
+                commentMeta.classList.add('comment-meta');
+                commentMeta.textContent = `${comment.email} - ${comment.time}`;
+
+                const commentContent = document.createElement('div');
+                commentContent.textContent = comment.text;
+
+                // Mostra il pulsante "Elimina" solo per il creatore del commento
+                if (comment.email === userEmail) {
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Elimina';
+                    deleteButton.onclick = function() {
+                        commentsContainer.removeChild(commentElement);
+                        removeComment(comment.email, comment.time);
+                    };
+                    commentElement.appendChild(deleteButton);
+                }
+
+                commentElement.appendChild(commentMeta);
+                commentElement.appendChild(commentContent);
+                commentsContainer.appendChild(commentElement);
+            });
+        }
+    }
+
+    function removeComment(email, time) {
+        let comments = localStorage.getItem('comments');
+        
+        if (comments) {
+            comments = JSON.parse(comments);
+            comments = comments.filter(comment => !(comment.email === email && comment.time === time));
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+    }
+
+    window.onload = loadComments;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.style.overflowY = 'auto';
+        document.body.style.overflowX = 'hidden';
+    });
+</script>
